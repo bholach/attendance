@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CUA</string>
+    <string name="enter_id">Enter ID</string>
+    <string name="password">Password</string>
+    <string name="finger_print">Finger Print</string>
+    <string name="bar_code">Bar Code</string>
+    <string name="wifi">WiFi</string>
+    <string name="other">Other</string>
+    <string name="choose_option">Choose Option</string>
+    <string name="wifi_btn">wifi_icon</string>
+    <string name="wifi_pin_page_name">Wifi Active</string>
+    <string name="stud_home_page_name">Student Home</string>
+    <string name="login_portal">Login Portal</string>
+    <string name="login_btn_name">Login</string>
+    <string name="faculty_home_page">Faculty Home</string>
+</resources>
