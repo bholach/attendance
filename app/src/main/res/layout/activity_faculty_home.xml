@@ -1,144 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".FacultyHomeActivity">
 
+    <TextView
+        android:id="@+id/f_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/dark"/>
+    <TextView
+        android:id="@+id/t_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/dark"/>
+    <TextView
+        android:id="@+id/current_branch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/dark"/>
+    <TextView
+        android:id="@+id/current_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/dark"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/dark"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_marginTop="20dp"
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/choose_option"
-                android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#9a9a9a" />
+       <android.support.v7.widget.CardView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:cardElevation="8dp">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/grey"
+               android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center"
-                android:orientation="horizontal">
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@color/grey"
+                   android:gravity="center_horizontal"
+                   android:paddingBottom="10dp"
+                   android:paddingTop="10dp"
+                   android:text="@string/choose_option"
+                   android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@color/grey"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#9a9a9a" />
 
-                    <ImageButton
-                        android:id="@+id/wifi"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/ripple_btn"
-                        android:padding="20dp"
-                        android:contentDescription="@string/wifi_btn"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_wifi" />
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/wifi" />
-                </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="5dp"
+                       android:background="@color/grey"
+                       android:orientation="vertical"
+                       android:padding="5dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@color/grey"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                       <ImageButton
+                           android:id="@+id/wifi"
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:background="@drawable/ripple_btn"
+                           android:padding="20dp"
+                           android:contentDescription="@string/wifi_btn"
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/ic_wifi" />
 
-                    <ImageButton
-                        android:id="@+id/barcode"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/ripple_btn"
-                        android:padding="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_bar" />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="30dp"
+                           android:gravity="center"
+                           android:text="@string/wifi" />
+                   </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/bar_code" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/white"
-                android:gravity="center">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@color/grey"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="5dp"
+                       android:orientation="vertical"
+                       android:padding="5dp">
 
-                    <ImageButton
-                        android:id="@+id/finger_print"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/ripple_btn"
-                        android:padding="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_fingerprint" />
+                       <ImageButton
+                           android:id="@+id/barcode"
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:background="@drawable/ripple_btn"
+                           android:padding="20dp"
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/ic_bar" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/finger_print" />
-                </LinearLayout>
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="30dp"
+                           android:gravity="center"
+                           android:text="@string/bar_code" />
+                   </LinearLayout>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="center">
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="5dp"
+                       android:background="@color/grey"
+                       android:orientation="vertical"
+                       android:padding="5dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@color/grey"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                       <ImageButton
+                           android:id="@+id/finger_print"
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:background="@drawable/ripple_btn"
+                           android:padding="20dp"
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/ic_fingerprint" />
 
-                    <ImageButton
-                        android:id="@+id/others"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/ripple_btn"
-                        android:padding="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_wifi" />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="30dp"
+                           android:gravity="center"
+                           android:text="@string/finger_print" />
+                   </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/other" />
-                </LinearLayout>
-            </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="5dp"
+                       android:background="@color/grey"
+                       android:orientation="vertical"
+                       android:padding="5dp">
+
+                       <ImageButton
+                           android:id="@+id/others"
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:background="@drawable/ripple_btn"
+                           android:padding="20dp"
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/ic_wifi" />
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="30dp"
+                           android:gravity="center"
+                           android:text="@string/other" />
+                   </LinearLayout>
+               </LinearLayout>
+           </LinearLayout>
+       </android.support.v7.widget.CardView>
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
