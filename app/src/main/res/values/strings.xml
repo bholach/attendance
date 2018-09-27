@@ -13,18 +13,28 @@
     <string name="login_portal">Login Portal</string>
     <string name="login_btn_name">Login</string>
     <string name="faculty_home_page">Faculty Home</string>
-    
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pick_date">pick date</string>
     <string name="select_date">Choose date</string>
     <string name="select_branch">Select branch</string>
     <string name="select_section">Select section</string>
     <string name="done">done</string>
+    <string name="select_semester">select semester</string>
     <string-array name="branch">
         <item>BCA</item>
         <item>MCA</item>
         <item>B.Sc</item>
         <item>M.Sc</item>
+    </string-array>
+
+    <string-array name="semester">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
     </string-array>
     <string-array name="sections">
         <item>A</item>

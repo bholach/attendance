@@ -28,15 +28,16 @@ import java.util.GregorianCalendar;
 public class FacultyHomeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     ImageButton wifi,barcode,finger_print,other;
-    TextView _id,t_date,current_branch,current_section,dia_date;
+    TextView _id,t_date,current_class,dia_date;
     String date;
+    String stud_class;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_home);
 
         getSupportActionBar().setTitle(R.string.faculty_home_page);
-        date = "";
+        date = "";stud_class="";
         wifi = findViewById(R.id.wifi);
         barcode = findViewById(R.id.barcode);
         t_date = findViewById(R.id.t_date);
@@ -44,9 +45,7 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
         other = findViewById(R.id.others);
 
         _id = findViewById(R.id.uid);
-        current_branch = findViewById(R.id.current_branch);
-        current_section = findViewById(R.id.current_section);
-
+        current_class = findViewById(R.id.current_class);
 
         showPopup(); //show popup_options
 
@@ -86,27 +85,37 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
     }
 
     public void openBarCode(){
-
         //checking camera permission
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
-                askPermission();
+                askCameraPermission();
             }else{
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},100);
             }
-        }else{
-            Intent in = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(in, 12);
+        }
+        else if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                askStoragePermission();
+            }else{
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},200);
+            }
+        }
+        else{
+            Intent in = new Intent(this,BarcodeAttendanceActivity.class);
+            in.putExtra("class",stud_class);
+            startActivity(in);
         }
 
     }
     public void openOther(){
-
     }
 
-    public void askPermission(){
+    public void askCameraPermission(){
         //requesting camera permission
         ActivityCompat.requestPermissions(FacultyHomeActivity.this,new String[]{Manifest.permission.CAMERA},100);
+    }
+    public void askStoragePermission(){
+        ActivityCompat.requestPermissions(FacultyHomeActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},200);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -117,7 +126,18 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
                     if(grantResults[i]==PackageManager.PERMISSION_DENIED){
                         boolean shotAgain = ActivityCompat.shouldShowRequestPermissionRationale(this,permission);
                         if(shotAgain){
-                            askPermission();
+                            askCameraPermission();
+                        }
+                    }
+                }
+            }
+            case 200 : {
+                for (int i=0,len = permissions.length;i < len ;i++){
+                    String permission = permissions[i];
+                    if(grantResults[i]==PackageManager.PERMISSION_DENIED){
+                        boolean shotAgain = ActivityCompat.shouldShowRequestPermissionRationale(this,permission);
+                        if(shotAgain){
+                            askStoragePermission();
                         }
                     }
                 }
@@ -163,14 +183,16 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
     public void showPopup(){
         final Dialog dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.setContentView(R.layout.popup_menu_layout);
-        Button dpicker,done;
-        final Spinner select_branch,select_section;
+        Button done;
+        ImageButton dpicker;
+        final Spinner select_branch,select_semester,select_section;
         final TextView selected_date;
 
         dpicker = dialog.findViewById(R.id.choose_date);
         done = dialog.findViewById(R.id.set_data);
         selected_date = dialog.findViewById(R.id.selected_date);
         select_branch = dialog.findViewById(R.id.branch);
+        select_semester = dialog.findViewById(R.id.semester);
         select_section = dialog.findViewById(R.id.section);
         dia_date = selected_date;
 
@@ -185,10 +207,8 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
             @Override
             public void onClick(View v) {
                 if(!date.isEmpty()) {
-                    setData(select_branch.getSelectedItem().toString(), select_section.getSelectedItem().toString());
-
+                    setData(select_branch.getSelectedItem().toString(), select_semester.getSelectedItem().toString(),select_section.getSelectedItem().toString());
                     dialog.dismiss();
-
                 }else
                     showAlert();
             }
@@ -197,9 +217,11 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
         dialog.show();
     }
 
-    private void setData(String branch,String section) {
-        current_branch.setText("Branch : "+branch);
-        current_section.setText("Section : "+section);
+    private void setData(String branch,String sem,String section) {
+
+        String cur_class = branch+" "+sem+" ("+section+")";
+        stud_class = branch+sem+"("+section+")";
+        current_class.setText("Class : "+cur_class);
     }
 
     public void showAlert(){

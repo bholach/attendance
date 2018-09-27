@@ -20,6 +20,7 @@
         android:text="Set up Details"
         android:gravity="center_horizontal"
         android:textStyle="bold"
+        android:textColor="@color/dark"
         android:padding="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,28 +32,30 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:weightSum="3"
+        android:gravity="center"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_date"
-            android:layout_weight="2"
+            android:textColor="@color/dark"
             android:layout_marginEnd="10dp"/>
-        <Button
+        <TextView
+            android:layout_weight="3"
+            android:id="@+id/selected_date"
+            android:layout_width="0dp"
+            android:textColor="@color/dark"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+        <ImageButton
             android:id="@+id/choose_date"
-            android:layout_weight="1"
-            android:layout_width="120dp"
-            android:layout_height="45dp"
-            android:text="@string/pick_date"
-            android:background="@drawable/login_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_date"
+            android:elevation="6dp"
+            android:background="@drawable/btn_outline_round"
             android:textColor="@color/white"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/selected_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/select_branch"
+            android:textColor="@color/dark"
             android:layout_marginEnd="10dp"/>
         <Spinner
             android:layout_weight="1.5"
@@ -84,7 +88,30 @@
             android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/select_semester"
+            android:textColor="@color/dark"
+            android:layout_marginEnd="10dp"/>
+        <Spinner
+            android:layout_weight="1.5"
+            android:id="@+id/semester"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:popupBackground="@color/dark"
+            android:spinnerMode="dropdown"
+            android:entries="@array/semester"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:weightSum="3"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/select_section"
+            android:textColor="@color/dark"
             android:layout_marginEnd="10dp"/>
         <Spinner
             android:layout_weight="1.5"
