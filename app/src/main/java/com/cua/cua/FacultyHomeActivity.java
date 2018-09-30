@@ -81,7 +81,9 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
     }
 
     public void openWifi(){
-        startActivity(new Intent(this,FacultyWifiPinActivity.class));
+        Intent in = new Intent(this,FacultyWifiPinActivity.class);
+        in.putExtra("class",stud_class);
+        startActivity(in);
     }
 
     public void openBarCode(){

@@ -44,7 +44,7 @@ public class BarcodeAttendanceActivity extends AppCompatActivity {
         student_list_view = findViewById(R.id.student_list_view);
         scan_btn = findViewById(R.id.scan_btn);
 
-         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,android.R.id.text1,stud_data);
+        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,android.R.id.text1,stud_data);
 
         student_list_view.setAdapter(adapter);
         scan_btn.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +123,6 @@ public class BarcodeAttendanceActivity extends AppCompatActivity {
 
         File root = android.os.Environment.getExternalStorageDirectory();
         // See http://stackoverflow.com/questions/3551821/android-write-to-sd-card-folder
-
         File dir = new File (root.getAbsolutePath() + "/attendance");
         dir.mkdirs();
         File file = new File(dir, stud_class+".csv");
