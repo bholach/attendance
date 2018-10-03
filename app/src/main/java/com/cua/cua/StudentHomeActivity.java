@@ -30,6 +30,10 @@ public class StudentHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_home);
 
         getSupportActionBar().setTitle(R.string.stud_home_page_name);
+
+        if (mywifi != null && mywifi.isWifiEnabled())
+            mywifi.setWifiEnabled(false);
+
         name = findViewById(R.id.name);
         uid = findViewById(R.id.uid);
         String data = "UID : "+getIntent().getStringExtra("uid");
@@ -43,12 +47,8 @@ public class StudentHomeActivity extends AppCompatActivity {
         mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
         mywifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (mywifi != null && !mywifi.isWifiEnabled());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            showAlert("","Contact Faculty");
-        }
+        if (mywifi != null && !mywifi.isWifiEnabled())
+            mywifi.setWifiEnabled(true);
 
         mManager = (WifiP2pManager) getApplicationContext().getSystemService(Context.WIFI_P2P_SERVICE);
         mChannel = mManager.initialize(this, getMainLooper(), new WifiP2pManager.ChannelListener() {
@@ -57,7 +57,9 @@ public class StudentHomeActivity extends AppCompatActivity {
                 mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
             }
         });
+    }
 
+    public void setDeviceName(){
         //For setting Device Name
         Class[] paramsTypes = new Class[3];
         paramsTypes[0] = WifiP2pManager.Channel.class;
@@ -71,29 +73,29 @@ public class StudentHomeActivity extends AppCompatActivity {
             argsList[0] = mChannel;
             argsList[1] = getIntent().getStringExtra("uid");
             argsList[2] = new WifiP2pManager.ActionListener(){
-
                 @Override
                 public void onSuccess() {}
                 @Override
                 public void onFailure(int reason) {
-                    showAlert("","Restart App");
+                    // showAlert("","Restart App");
+                    Toast.makeText(StudentHomeActivity.this, "Failed", Toast.LENGTH_LONG).show();
                 }
             };
             setDeviceName.invoke(mManager, argsList);
         } catch (NoSuchMethodException e) {
-           showAlert("","Contact Faculty");
+            showAlert("","Contact Faculty");
         } catch (IllegalAccessException e) {
             showAlert("","Contact Faculty");
         } catch (InvocationTargetException e) {
             showAlert("","Contact Faculty");
         }
-
     }
-
     public void attendNow(View view) {
+        setDeviceName();
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("Attending Attendance");
         dialog.setMessage("Please Wait...");
+        dialog.setCancelable(false);
         dialog.setButton(ProgressDialog.BUTTON_POSITIVE, "Done", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -120,6 +122,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         dialog.setTitle("Are You Sure");
         dialog.setMessage("Do you Want to Exit ?");
         dialog.setIcon(R.drawable.ic_warning);
+        dialog.setCancelable(false);
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -152,6 +155,7 @@ public class StudentHomeActivity extends AppCompatActivity {
 
         dialog.setTitle(type);
         dialog.setMessage(data);
+        dialog.setCancelable(false);
         dialog.setPositiveButton("Close App", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -46,23 +46,21 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
 
         _id = findViewById(R.id.uid);
         current_class = findViewById(R.id.current_class);
-
         showPopup(); //show popup_options
-
+        checkStoragePermission();
+        checkStoragePermission();
        wifi.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                openWifi();
            }
        });
-
        barcode.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                openBarCode();
            }
        });
-
        finger_print.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -81,6 +79,7 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
     }
 
     public void openWifi(){
+        checkStoragePermission();
         Intent in = new Intent(this,FacultyWifiPinActivity.class);
         in.putExtra("class",stud_class);
         startActivity(in);
@@ -88,6 +87,14 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
 
     public void openBarCode(){
         //checking camera permission
+            checkStoragePermission();
+            checkStoragePermission();
+            Intent in = new Intent(this,BarcodeAttendanceActivity.class);
+            in.putExtra("class",stud_class);
+            startActivity(in);
+    }
+
+    public void checkCameraPermission(){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
                 askCameraPermission();
@@ -95,19 +102,15 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},100);
             }
         }
-        else if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+    }
+    public void checkStoragePermission(){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                 askStoragePermission();
             }else{
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},200);
             }
         }
-        else{
-            Intent in = new Intent(this,BarcodeAttendanceActivity.class);
-            in.putExtra("class",stud_class);
-            startActivity(in);
-        }
-
     }
     public void openOther(){
     }
@@ -121,30 +124,34 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case 100 : {
-                for (int i=0,len = permissions.length;i < len ;i++){
+       boolean flag = false;
+        switch (requestCode) {
+            case 100: {
+                for (int i = 0, len = permissions.length; i < len; i++) {
                     String permission = permissions[i];
-                    if(grantResults[i]==PackageManager.PERMISSION_DENIED){
-                        boolean shotAgain = ActivityCompat.shouldShowRequestPermissionRationale(this,permission);
-                        if(shotAgain){
-                            askCameraPermission();
+                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        boolean shotAgain = ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
+                        if (shotAgain) {
+                            flag = true;
                         }
                     }
                 }
             }
-            case 200 : {
-                for (int i=0,len = permissions.length;i < len ;i++){
+            case 200: {
+                for (int i = 0, len = permissions.length; i < len; i++) {
                     String permission = permissions[i];
-                    if(grantResults[i]==PackageManager.PERMISSION_DENIED){
-                        boolean shotAgain = ActivityCompat.shouldShowRequestPermissionRationale(this,permission);
-                        if(shotAgain){
-                            askStoragePermission();
+                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        boolean shotAgain = ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
+                        if (shotAgain) {
+                          flag = true;
                         }
                     }
                 }
             }
         }
+            if(flag){
+                finishAffinity();
+            }
     }
 
     @Override
@@ -154,6 +161,7 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
         dialog.setTitle("Are You Sure");
         dialog.setMessage("Do you Want to Exit ?");
         dialog.setIcon(R.drawable.ic_warning);
+        dialog.setCancelable(false);
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -220,7 +228,6 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
     }
 
     private void setData(String branch,String sem,String section) {
-
         String cur_class = branch+" "+sem+" ("+section+")";
         stud_class = branch+sem+"("+section+")";
         current_class.setText("Class : "+cur_class);
@@ -231,6 +238,7 @@ public class FacultyHomeActivity extends AppCompatActivity implements DatePicker
         dialog.setTitle("Error");
         dialog.setMessage("please select date !");
         dialog.setIcon(R.drawable.ic_warning);
+        dialog.setCancelable(false);
         dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -80,7 +82,8 @@ public class FacultyWifiPinActivity extends AppCompatActivity {
         getPermission();
 
         mywifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (mywifi != null && !mywifi.isWifiEnabled())
+        if (mywifi != null && mywifi.isWifiEnabled())
+            mywifi.setWifiEnabled(false);
             mywifi.setWifiEnabled(true);
 
         mManager = (WifiP2pManager) getApplicationContext().getSystemService(Context.WIFI_P2P_SERVICE);
@@ -161,18 +164,16 @@ public class FacultyWifiPinActivity extends AppCompatActivity {
                             for(WifiP2pDevice device : peers.getDeviceList()){
                                 deviceList.add(device.deviceName);
                             }
-                            //Collections.sort(deviceList);
-                            String count = pin.getText().toString()+"\nTotal : "+deviceList.size();
+                            Collections.sort(deviceList);
+                            HashSet<String> temp = new HashSet<>(deviceList);
+                            deviceList = new ArrayList<>(temp);
+                            String count = "\nTotal : "+deviceList.size();
                             pin.setText(count);
                             adapter.notifyDataSetChanged();
                         }
                     }
                 });
             }
-        } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
-            // Respond to new connection or disconnections
-        } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
-            // Respond to this device's wifi state changing
         }
     }
  }  ;
@@ -238,7 +239,6 @@ public class FacultyWifiPinActivity extends AppCompatActivity {
 
     //save method to save file to storage
     protected void saveFile(){
-
         File root = android.os.Environment.getExternalStorageDirectory();
         // See http://stackoverflow.com/questions/3551821/android-write-to-sd-card-folder
         File dir = new File (root.getAbsolutePath() + "/attendance");
@@ -246,7 +246,7 @@ public class FacultyWifiPinActivity extends AppCompatActivity {
         File file = new File(dir, stud_class+".csv");
 
         try {
-            FileOutputStream f = new FileOutputStream(file);
+            FileOutputStream f = new FileOutputStream(file,true);
             PrintWriter pw = new PrintWriter(f);
             pw.println("UID");
             for(String s:deviceList){

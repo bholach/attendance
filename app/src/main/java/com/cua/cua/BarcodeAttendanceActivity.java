@@ -2,7 +2,6 @@ package com.cua.cua;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,6 +69,7 @@ public class BarcodeAttendanceActivity extends AppCompatActivity {
             dialog.setTitle("Are You Sure");
             dialog.setMessage("Exit without saving ?");
             dialog.setIcon(R.drawable.ic_warning);
+            dialog.setCancelable(false);
             dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -128,7 +128,7 @@ public class BarcodeAttendanceActivity extends AppCompatActivity {
         File file = new File(dir, stud_class+".csv");
 
         try {
-            FileOutputStream f = new FileOutputStream(file);
+            FileOutputStream f = new FileOutputStream(file,true);
             PrintWriter pw = new PrintWriter(f);
             pw.println("UID");
             for(String s:stud_data){

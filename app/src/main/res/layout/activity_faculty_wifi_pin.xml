@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".FacultyWifiPinActivity">
 
     <TextView
@@ -12,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:textColor="@color/white"
-        android:text="UID's LIST"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +40,8 @@
         android:onClick="startPeer"
         android:text="start"
         android:background="@drawable/login_btn"
-        android:layout_marginBottom="10dp"
-        android:elevation="10dp"
+        android:layout_margin="10dp"
+        android:elevation="6dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
